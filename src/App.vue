@@ -1,11 +1,17 @@
 <template>
+  <div></div>
   <div class="app">
-    <floor-row v-for="i in numberOfFloors" :key="i" :floorNumber="i"/>
+    <floor-row
+      v-for="i in floorsStore.numberOfFloors"
+      :key="i"
+      :floorNumber="i"
+    />
   </div>
 </template>
 
 <script>
 import FloorRow from "@/components/FloorRow.vue";
+import { useFloorsStore } from "@/stores/FloorsStore";
 
 export default {
   name: "App",
@@ -13,8 +19,13 @@ export default {
     FloorRow,
   },
   data() {
+    return {};
+  },
+  setup() {
+    const floorsStore = useFloorsStore();
+
     return {
-      numberOfFloors: 5,
+      floorsStore,
     };
   },
 };
