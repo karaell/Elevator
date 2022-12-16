@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import ElevatorItem from "@/components/ElevatorItem.vue";
-import HallItem from "@/components/HallItem.vue";
+import ElevatorItem from "@/components/FloorItems/ElevatorItem.vue";
+import HallItem from "@/components/FloorItems/HallItem.vue";
 
 export default {
   name: "floor-row",
