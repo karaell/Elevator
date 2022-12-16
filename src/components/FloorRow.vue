@@ -1,6 +1,7 @@
 <template>
   <div class="floor">
     <vertical-line />
+    {{floorNumber}}
     <elevator-item />
     <vertical-line />
     <hall-item />
@@ -17,6 +18,11 @@ export default {
     ElevatorItem,
     HallItem,
   },
+  props: {
+    floorNumber: {
+      type: Number,
+    }
+  }
 };
 </script>
 
