@@ -1,5 +1,5 @@
 <template>
-  <div class="elevator">elevator</div>
+  <div class="elevatorShaft"></div>
 </template>
 
 <script>
@@ -9,10 +9,9 @@ export default {
 </script>
 
 <style scoped>
-.elevator {
-    background-color: #fff;
-    height: 100%;
-    width: 150px;
+.elevatorShaft {
+  background-color: #fff;
+  height: 100%;
+  width: 150px;
 }
-
 </style>

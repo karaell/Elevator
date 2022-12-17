@@ -1,7 +1,6 @@
 <template>
   <div class="floor">
     <vertical-line />
-    {{floorNumber}}
     <elevator-item />
     <vertical-line />
     <hall-item :floorNumber="floorNumber"/>

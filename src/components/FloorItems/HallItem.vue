@@ -1,16 +1,29 @@
 <template>
   <div class="hall">
-    <button class="btn">{{ floorNumber }}</button>
+    <button class="btn" @click="addToQueue(floorNumber)">
+      {{ floorNumber }}
+    </button>
   </div>
 </template>
 
 <script>
+import { useFloorsStore } from "@/stores/FloorsStore";
+
 export default {
   name: "hall-item",
   props: {
     floorNumber: {
       type: Number,
     },
+  },
+  setup() {
+    const floorsStore = useFloorsStore();
+
+    const addToQueue = (id) => floorsStore.addToCallQueue(id)
+
+    return {
+      addToQueue
+    };
   },
 };
 </script>
