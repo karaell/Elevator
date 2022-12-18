@@ -8,9 +8,17 @@ export const useFloorsStore = defineStore("floorsStore", {
     direction: "stop",
     isElevatorActive: false,
   }),
+  getters: {
+    isFloorInCallQueue: (state) => {
+      return (floorNumber) => state.callQueue.includes(floorNumber);
+    },
+  },
   actions: {
     addToCallQueue(id) {
       this.callQueue.push(id);
+    },
+    changeElevatorActive(value) {
+      this.isElevatorActive = value;
     }
-  }
+  },
 });

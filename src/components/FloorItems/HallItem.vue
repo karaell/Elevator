@@ -1,11 +1,16 @@
 <template>
   <div class="hall">
-    <button class="btn" @click="addToQueue(floorNumber)">
+    <button
+      class="btn"
+      @click="elevatorCallBtnClick"
+      :class="{ active: floorsStore.isFloorInCallQueue(floorNumber) }"
+      :disabled="isElevatorOnCurrentFloor()"
+      
+    >
       {{ floorNumber }}
     </button>
   </div>
 </template>
-
 <script>
 import { useFloorsStore } from "@/stores/FloorsStore";
 
@@ -16,13 +21,35 @@ export default {
       type: Number,
     },
   },
+  methods: {
+    elevatorCallBtnClick() {
+      const isFloorInQueue = this.floorsStore.isFloorInCallQueue(
+        this.floorNumber
+      );
+      const isElevatorActive = this.floorsStore.isElevatorActive;
+
+      if (!isFloorInQueue) {
+        this.addToQueue(this.floorNumber);
+      }
+      if (!isElevatorActive) {
+        this.changeElevatorActive(true);
+      }
+    },
+    isElevatorOnCurrentFloor() {
+      return this.floorsStore.currentFloor === this.floorNumber;
+    }
+  },
   setup() {
     const floorsStore = useFloorsStore();
 
-    const addToQueue = (id) => floorsStore.addToCallQueue(id)
+    const addToQueue = (id) => floorsStore.addToCallQueue(id);
+    const changeElevatorActive = (value) =>
+      floorsStore.changeElevatorActive(value);
 
     return {
-      addToQueue
+      floorsStore,
+      addToQueue,
+      changeElevatorActive,
     };
   },
 };
@@ -43,6 +70,10 @@ export default {
 }
 
 .btn:hover {
-  background-color: rgb(148, 184, 218);
+  box-shadow: 0 0 5px 3px rgb(148, 184, 218);
+}
+
+.active {
+  background-color: rgb(100, 161, 218);
 }
 </style>
