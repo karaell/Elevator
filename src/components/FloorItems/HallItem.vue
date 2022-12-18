@@ -3,9 +3,8 @@
     <button
       class="btn"
       @click="elevatorCallBtnClick"
-      :class="{ active: floorsStore.isFloorInCallQueue(floorNumber) }"
+      :class="{ active: floorsStore.isFloorInCallQueue(floorNumber), next: floorsStore.firstFloorInCallQueue === floorNumber }"
       :disabled="isElevatorOnCurrentFloor()"
-      
     >
       {{ floorNumber }}
     </button>
@@ -33,11 +32,12 @@ export default {
       }
       if (!isElevatorActive) {
         this.changeElevatorActive(true);
+        this.goNextFloor()
       }
     },
     isElevatorOnCurrentFloor() {
       return this.floorsStore.currentFloor === this.floorNumber;
-    }
+    },
   },
   setup() {
     const floorsStore = useFloorsStore();
@@ -45,11 +45,13 @@ export default {
     const addToQueue = (id) => floorsStore.addToCallQueue(id);
     const changeElevatorActive = (value) =>
       floorsStore.changeElevatorActive(value);
+      const goNextFloor = () => floorsStore.goNextFloor();
 
     return {
       floorsStore,
       addToQueue,
       changeElevatorActive,
+      goNextFloor
     };
   },
 };
@@ -69,8 +71,8 @@ export default {
   font-weight: 600;
 }
 
-.btn:hover {
-  box-shadow: 0 0 5px 3px rgb(148, 184, 218);
+.next {
+  box-shadow: 0 0 8px 5px rgb(148, 184, 218);
 }
 
 .active {

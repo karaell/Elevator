@@ -37,7 +37,7 @@ export default {
   border-bottom: 2px solid rgba(0, 0, 0, 0.356);
   display: flex;
   flex-direction: column-reverse;
-  row-gap: 2px;
+  /* row-gap: 2px; */
   background-color: rgba(0, 0, 0, 0.356);
   position: relative;
 }
