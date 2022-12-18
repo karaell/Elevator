@@ -1,15 +1,16 @@
 import { defineStore } from "pinia";
+import { useLocalStorage } from "@vueuse/core";
 
 export const useFloorsStore = defineStore("floorsStore", {
   state: () => ({
-    numberOfFloors: 5,
-    callQueue: [],
-    currentFloor: 1,
-    direction: "stop",
-    isElevatorActive: false,
-    isElevatorWaiting: false,
-    transform: 0,
-    transitionDuration: 0,
+    numberOfFloors: useLocalStorage("numberOfFloors", 5),
+    callQueue: useLocalStorage("callQueue", []),
+    currentFloor: useLocalStorage("currentFloor", 1),
+    direction: useLocalStorage("direction", "stop"),
+    isElevatorActive: useLocalStorage("isElevatorActive", false),
+    isElevatorWaiting: useLocalStorage("isElevatorWaiting", false),
+    transform: useLocalStorage("transform", 0),
+    transitionDuration: useLocalStorage("transitionDuration", 0),
   }),
   getters: {
     isFloorInCallQueue: (state) => {
@@ -24,7 +25,9 @@ export const useFloorsStore = defineStore("floorsStore", {
       this.callQueue.push(id);
     },
     removeFromCallQueue() {
-      this.callQueue = this.callQueue.filter(item => item!==this.currentFloor)
+      this.callQueue = this.callQueue.filter(
+        (item) => item !== this.currentFloor
+      );
     },
     changeElevatorActive(value) {
       this.isElevatorActive = value;
