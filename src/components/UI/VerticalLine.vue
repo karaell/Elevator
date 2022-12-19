@@ -11,6 +11,6 @@ export default {
 <style scoped>
 .line {
   width: 2px;
-  background-color: rgba(0, 0, 0, 0.356);
+  background-color: rgba(0, 0, 0, 0.377);
 }
 </style>

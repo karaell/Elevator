@@ -1,15 +1,20 @@
 <template>
   <div
     class="elevator"
-    :class="{blink: floorsStore.isElevatorWaiting}"
+    :class="{ blink: floorsStore.isElevatorWaiting }"
     :style="{
-      transform: `translateY(${floorsStore.transform}px)`,
-      'transition-duration': `${floorsStore.transitionDuration}s`,
+      transform: `translateY(${floorsStore.pxTransform}px)`,
+      'transition-duration': `${floorsStore.elevatorSpeed}s`,
     }"
-    @transitionend="transitionEnd"
+    @transitionend="moveNextFloor"
   >
     <div class="scoreboard">
-      {{ floorsStore.currentFloor }} {{ floorsStore.direction }}
+      {{ floorsStore.currentFloor }}
+      <img
+        :src="require(`@/assets/${floorsStore.elevatorDirection}.svg`)"
+        alt="elevatorDirection"
+        v-if="floorsStore.elevatorDirection !== 'stop'"
+      />
     </div>
   </div>
 </template>
@@ -19,27 +24,30 @@ import { useFloorsStore } from "@/stores/FloorsStore";
 
 export default {
   methods: {
-    transitionEnd() {
+    moveNextFloor() {
+      const isCallQueueEmpty = !this.floorsStore.callQueue.length;
+
+      if (isCallQueueEmpty) return false;
+
       this.changeElevatorWaiting(true);
 
       setTimeout(() => {
         this.changeElevatorWaiting(false);
         this.floorsStore.removeFromCallQueue();
-        this.floorsStore.goNextFloor();
+        this.floorsStore.moveNextFloor();
       }, 3000);
-      // this.changeElevatorActive(false)
-    }
+    },
+  },
+  mounted() {
+    this.moveNextFloor();
   },
   setup() {
     const floorsStore = useFloorsStore();
-    const changeElevatorActive = (value) =>
-      floorsStore.changeElevatorActive(value);
-      const changeElevatorWaiting = (value) =>
+    const changeElevatorWaiting = (value) =>
       floorsStore.changeElevatorWaiting(value);
     return {
       floorsStore,
-      changeElevatorActive,
-      changeElevatorWaiting
+      changeElevatorWaiting,
     };
   },
 };
@@ -59,18 +67,29 @@ export default {
 }
 
 @keyframes blink {
-  0% { background-color: rgb(70, 255, 255, 0); }
-  50% {background-color: rgb(70, 255, 255, 0.5);}
-  100% { background-color: rgba(70, 255, 255, 1); }
+  0% {
+    background-color: rgb(70, 255, 255, 0);
+  }
+  50% {
+    background-color: rgb(70, 255, 255, 0.5);
+  }
+  100% {
+    background-color: rgba(70, 255, 255, 1);
+  }
 }
 
 .scoreboard {
   background-color: rgba(0, 0, 0, 0.281);
   border: 1px solid #000;
-  width: 50px;
+  width: 30px;
   margin: 0 auto;
   margin-top: 15px;
-  padding: 5px;
-  text-align: center;
+  padding: 5px 10px;
+  font-size: 20px;
+}
+
+.scoreboard img {
+  width: 15px;
+  height: 15px;
 }
 </style>

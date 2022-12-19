@@ -1,15 +1,15 @@
 <template>
-  <div class="elevatorShaft"></div>
+  <div class="shaft"></div>
 </template>
 
 <script>
 export default {
-  name: "elevator-item",
+  name: "shaft-item",
 };
 </script>
 
 <style scoped>
-.elevatorShaft {
+.shaft {
   background-color: #fff;
   height: 100%;
   width: 150px;

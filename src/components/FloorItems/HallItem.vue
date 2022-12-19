@@ -2,8 +2,11 @@
   <div class="hall">
     <button
       class="btn"
-      @click="elevatorCallBtnClick"
-      :class="{ active: floorsStore.isFloorInCallQueue(floorNumber), next: floorsStore.firstFloorInCallQueue === floorNumber }"
+      @click="elevatorCallHandleClick"
+      :class="{
+        active: floorsStore.isFloorInCallQueue(floorNumber),
+        next: floorsStore.firstFloorInCallQueue === floorNumber,
+      }"
       :disabled="isElevatorOnCurrentFloor()"
     >
       {{ floorNumber }}
@@ -21,7 +24,7 @@ export default {
     },
   },
   methods: {
-    elevatorCallBtnClick() {
+    elevatorCallHandleClick() {
       const isFloorInQueue = this.floorsStore.isFloorInCallQueue(
         this.floorNumber
       );
@@ -30,9 +33,10 @@ export default {
       if (!isFloorInQueue) {
         this.addToQueue(this.floorNumber);
       }
+
       if (!isElevatorActive) {
         this.changeElevatorActive(true);
-        this.goNextFloor()
+        this.moveNextFloor();
       }
     },
     isElevatorOnCurrentFloor() {
@@ -45,13 +49,13 @@ export default {
     const addToQueue = (id) => floorsStore.addToCallQueue(id);
     const changeElevatorActive = (value) =>
       floorsStore.changeElevatorActive(value);
-      const goNextFloor = () => floorsStore.goNextFloor();
+    const moveNextFloor = () => floorsStore.moveNextFloor();
 
     return {
       floorsStore,
       addToQueue,
       changeElevatorActive,
-      goNextFloor
+      moveNextFloor,
     };
   },
 };
@@ -60,6 +64,7 @@ export default {
 <style scoped>
 .hall {
   padding: 10px;
+  /* border: rgb(0, 0, 0); */
 }
 
 .btn {
@@ -72,7 +77,7 @@ export default {
 }
 
 .next {
-  box-shadow: 0 0 8px 5px rgb(148, 184, 218);
+  box-shadow: 0 0 0 2px rgb(255, 255, 255), 0 0 0 5px rgb(100, 161, 218);
 }
 
 .active {
