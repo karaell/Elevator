@@ -1,10 +1,27 @@
 <template>
   <div class="app">
     <form @submit.prevent class="form">
+      <label for="shafts">Установить количество лифтовых шахт:</label>
+      <input
+        class="form__input"
+        v-model="numberOfElevators"
+        type="text"
+        name="shafts"
+        id="shafts"
+        placeholder="Введите количество лифтовых шахт..."
+      />
+      <button class="form__btn" @click="changeNumberOfElevators">
+        Установить
+      </button>
+    </form>
+    <form @submit.prevent class="form">
+      <label for="floors">Установить количество этажей:</label>
       <input
         class="form__input"
         v-model="numberOfFloors"
         type="text"
+        name="floors"
+        id="floors"
         placeholder="Введите количество этажей..."
       />
       <button class="form__btn" @click="changeNumberOfFloors">
@@ -13,7 +30,11 @@
     </form>
     <div class="building">
       <div class="shafts">
-        <shaft-column :numberOfFloors="floorsStore.numberOfFloors" />
+        <shaft-column
+          v-for="elevatorNumber in floorsStore.numberOfElevators"
+          :key="elevatorNumber"
+          :numberOfFloors="floorsStore.numberOfFloors"
+        />
       </div>
       <div class="hall">
         <hall-row
@@ -40,9 +61,19 @@ export default {
   data() {
     return {
       numberOfFloors: "",
+      numberOfElevators:"",
     };
   },
   methods: {
+    changeNumberOfElevators() {
+      const numberOfElevators = this.numberOfElevators;
+      if (numberOfElevators > 0) {
+        this.floorsStore.changeNumberOfElevators(numberOfElevators);
+      } else {
+        alert("Минимальное количество лифтовых шахт: 1");
+      }
+      this.numberOfElevators = "";
+    },
     changeNumberOfFloors() {
       const numberOfFloors = this.numberOfFloors;
       if (numberOfFloors > 1) {
@@ -83,6 +114,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: start;
+  font-size: 20px;
 }
 
 .form__input {
@@ -90,6 +122,7 @@ export default {
   height: 40px;
   padding: 0 15px;
   font-size: 15px;
+  margin-left: 10px;
 }
 
 .form__btn {
