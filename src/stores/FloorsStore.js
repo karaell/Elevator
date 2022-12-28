@@ -3,7 +3,7 @@ import { useLocalStorage } from "@vueuse/core";
 
 export const useFloorsStore = defineStore("floorsStore", {
   state: () => ({
-    numberOfFloors: useLocalStorage("numberOfFloors", Array(5)),
+    numberOfFloors: useLocalStorage("numberOfFloors", 5),
     callQueue: useLocalStorage("callQueue", []),
     currentFloor: useLocalStorage("currentFloor", 1),
     elevatorDirection: useLocalStorage("elevatorDirection", "stop"),
@@ -36,7 +36,7 @@ export const useFloorsStore = defineStore("floorsStore", {
       this.isElevatorWaiting = value;
     },
     changeNumberOfFloors(number) {
-      this.numberOfFloors = Array(Number(number));
+      this.numberOfFloors = Number(number);
     },
     moveNextFloor() {
       const isCallQueueEmpty = !this.callQueue.length;

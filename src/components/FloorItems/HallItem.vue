@@ -39,6 +39,8 @@ export default {
       }
     },
     isElevatorOnCurrentFloor() {
+      // console.log(this.floorsStore.currentFloor)
+      // console.log(this.floorNumber);
       return this.floorsStore.currentFloor === this.floorNumber;
     },
   },

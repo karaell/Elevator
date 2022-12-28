@@ -59,7 +59,6 @@ export default {
   height: 200px;
   width: 150px;
   position: absolute;
-  margin-left: 2px;
 }
 
 .blink {

@@ -1,20 +1,17 @@
 <template>
-  <div class="floor">
-    <vertical-line />
-    <shaft-item />
-    <vertical-line />
+  <div class="hallRow">
     <hall-item :floorNumber="floorNumber" />
   </div>
 </template>
 
 <script>
-import ShaftItem from "@/components/FloorItems/ShafItem.vue";
+
 import HallItem from "@/components/FloorItems/HallItem.vue";
 
 export default {
-  name: "floor-row",
+  name: "hall-row",
   components: {
-    ShaftItem,
+
     HallItem,
   },
   props: {
@@ -26,10 +23,9 @@ export default {
 </script>
 
 <style scoped>
-.floor {
+.hallRow {
   height: 200px;
   width: 100%;
-  display: flex;
   background-color: #fff;
   outline: 1px solid rgba(0, 0, 0, 0.164);
 }
