@@ -39,7 +39,7 @@ export const useFloorsStore = defineStore("floorsStore", {
     changeNumberOfFloors(number) {
       this.numberOfFloors = Number(number);
     },
-    changeNumberOfElevators(number) {
+    changeNumberOfShafts(number) {
       this.numberOfElevators = Number(number);
     },
     moveNextFloor() {
