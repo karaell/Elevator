@@ -46,8 +46,18 @@ export default {
   },
   methods: {
     changeNumberOfShafts(numberOfShafts) {
+      const elevatorItem = {
+        callQueue: [],
+        currentFloor: 1,
+        elevatorDirection: "stop",
+        isElevatorActive: false,
+        isElevatorWaiting: false,
+        pxTransform: 0,
+        elevatorSpeed: 0,
+      };
+
       if (numberOfShafts > 0) {
-        this.floorsStore.changeNumberOfShafts(numberOfShafts);
+        this.floorsStore.changeNumberOfShafts(numberOfShafts, elevatorItem);
       } else {
         alert("Минимальное количество лифтовых шахт: 1");
       }

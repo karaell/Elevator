@@ -27,7 +27,7 @@ export default {
       const isFloorInQueue = this.floorsStore.isFloorInCallQueue(
         this.floorNumber
       );
-      const isElevatorActive = this.floorsStore.isElevatorActive;
+      const isElevatorActive = this.floorsStore.elevatorsStatus[0].isElevatorActive;
 
       if (!isFloorInQueue) {
         this.addToQueue(this.floorNumber);
@@ -39,9 +39,7 @@ export default {
       }
     },
     isElevatorOnCurrentFloor() {
-      // console.log(this.floorsStore.currentFloor)
-      // console.log(this.floorNumber);
-      return this.floorsStore.currentFloor === this.floorNumber;
+      return this.floorsStore.elevatorsStatus[0].currentFloor === this.floorNumber;
     },
   },
   setup() {

@@ -1,19 +1,19 @@
 <template>
   <div
     class="elevator"
-    :class="{ blink: floorsStore.isElevatorWaiting }"
+    :class="{ blink: floorsStore.elevatorsStatus[0].isElevatorWaiting }"
     :style="{
-      transform: `translateY(${floorsStore.pxTransform}px)`,
-      'transition-duration': `${floorsStore.elevatorSpeed}s`,
+      transform: `translateY(${floorsStore.elevatorsStatus[0].pxTransform}px)`,
+      'transition-duration': `${floorsStore.elevatorsStatus[0].elevatorSpeed}s`,
     }"
     @transitionend="moveNextFloor"
   >
     <div class="scoreboard">
-      {{ floorsStore.currentFloor }}
+      {{ floorsStore.elevatorsStatus[0].currentFloor }}
       <img
-        :src="require(`@/assets/${floorsStore.elevatorDirection}.svg`)"
+        :src="require(`@/assets/${floorsStore.elevatorsStatus[0].elevatorDirection}.svg`)"
         alt="elevatorDirection"
-        v-if="floorsStore.elevatorDirection !== 'stop'"
+        v-if="floorsStore.elevatorsStatus[0].elevatorDirection !== 'stop'"
       />
     </div>
   </div>
@@ -25,7 +25,7 @@ import { useFloorsStore } from "@/stores/FloorsStore";
 export default {
   methods: {
     moveNextFloor() {
-      const isCallQueueEmpty = !this.floorsStore.callQueue.length;
+      const isCallQueueEmpty = !this.floorsStore.elevatorsStatus[0].callQueue.length;
 
       if (isCallQueueEmpty) return false;
 
