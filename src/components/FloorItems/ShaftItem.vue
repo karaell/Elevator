@@ -7,9 +7,9 @@ export default {
   name: "shaft-item",
   props: {
     numberOfFloors: {
-      type: Number
-    }
-  }
+      type: Number,
+    },
+  },
 };
 </script>
 

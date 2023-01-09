@@ -5,13 +5,11 @@
 </template>
 
 <script>
-
 import HallItem from "@/components/FloorItems/HallItem.vue";
 
 export default {
   name: "hall-row",
   components: {
-
     HallItem,
   },
   props: {
